@@ -11,7 +11,7 @@ app.use(cookieParser());
 app.use(cors());
 
 mongoose.connect(
-  'mongodb+srv://admin:1@cluster0.qni0p.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',
+  process.env.DB_URL,
   {
     useUnifiedTopology: true,
     useNewUrlParser: true,
@@ -46,7 +46,7 @@ app.use("/api/admin", adminAddOnRoutes);
 app.use("/api/admin", adminOrderRoutes);
 
 // Serve static assets if in production
-if ('production' === 'production') {
+if (process.env.NODE_ENV === 'production') {
   // Serve frontend files
   app.use(express.static("../client/build"));
   // Getting all the routes
