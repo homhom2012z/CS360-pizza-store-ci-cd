@@ -1,3 +1,4 @@
+require('dotenv').config();
 const User = require("../models/User");
 const Order = require("../models/Order");
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
@@ -58,7 +59,7 @@ exports.createOrder = async (req, res) => {
       // Create charge and save
       {
         amount: checkBill * 100,
-        currency: "inr",
+        currency: "usd",
         receipt_email: token.email,
         source: token.id,
         description: `${token.email} pizza order`,
@@ -68,7 +69,7 @@ exports.createOrder = async (req, res) => {
             line1: `${getOrder.address.address.buildingNumber}, 
                     ${getOrder.address.address.streetName}, 
                     ${getOrder.address.address.city}`,
-            country: "India",
+            country: "United State",
           },
         },
       },
@@ -92,7 +93,7 @@ exports.createOrder = async (req, res) => {
     if (err.type === "StripeCardError") {
       return res.json({ error: err.raw.code });
     }
-    res.json({ error: "Error placing order" });
+    res.json({ error: err.raw.code });
   }
 };
 
