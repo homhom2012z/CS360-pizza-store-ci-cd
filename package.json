@@ -9,14 +9,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/charan1973/pizzashop.git"
+    "url": "git+https://github.com/homhom2012z/CS360_STINSE.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/charan1973/pizzashop/issues"
+    "url": "https://github.com/homhom2012z/CS360_STINSE/issues"
   },
-  "homepage": "https://github.com/charan1973/pizzashop#readme",
+  "homepage": "https://github.com/homhom2012z/CS360_STINSE#readme",
   "devDependencies": {
     "lerna": "^3.22.1"
   }
