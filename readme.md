@@ -1,6 +1,7 @@
 # Pizza store
 
 A friendly food ordering website for your neighborhood pizza store.
+Original Repo : https://github.com/charan1973/pizzashop
 
 ### **Stack used:**  
 * MongoDB(Mongoose with MongoDB atlas)  
