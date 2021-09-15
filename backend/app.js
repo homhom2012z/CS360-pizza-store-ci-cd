@@ -9,9 +9,10 @@ const app = express();
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors({
+  withCredentials: true,
   credentials: true,
   allowedHeaders: ['Content-Type', 'Authorization'],
-  origin: [process.env.CLIENT_ORIGIN]
+  origin: true
 }));
 
 mongoose.connect(
