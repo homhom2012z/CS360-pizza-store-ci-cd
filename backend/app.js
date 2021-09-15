@@ -11,7 +11,7 @@ app.use(cookieParser());
 app.use(cors({
   credentials: true,
   allowedHeaders: ['Content-Type', 'Authorization'],
-  origin: [process.env.CLIENT_ORIGIN]
+  origin: ["https://cs360-stince-frontend.herokuapp.com"]
 }));
 
 mongoose.connect(
