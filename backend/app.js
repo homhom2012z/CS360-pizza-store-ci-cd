@@ -11,7 +11,7 @@ app.use(cookieParser());
 app.use(cors({
   credentials: true,
   allowedHeaders: ['Content-Type', 'Authorization'],
-  origin: ["https://cs360-stince-frontend.netlify.app"]
+  origin: [process.env.CLIENT_ORIGIN]
 }));
 
 mongoose.connect(
