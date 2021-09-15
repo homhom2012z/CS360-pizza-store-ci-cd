@@ -8,12 +8,7 @@ const path = require("path");
 const app = express();
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors({
-  withCredentials: true,
-  credentials: true,
-  allowedHeaders: ['Content-Type', 'Authorization'],
-  origin: true
-}));
+app.use(cors());
 
 mongoose.connect(
   process.env.DB_URL,
