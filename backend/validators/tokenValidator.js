@@ -2,7 +2,7 @@ const jwt = require("jsonwebtoken");
 
 exports.verifyToken = (req, res, next) => {
   const token = req.cookies.token;
-  if (!token) return res.json({ error: "Access denied" });
+  if (!token) return res.json({ error: "Access denied"+" Token"+req.cookies.token });
 
   try {
     const decoded = jwt.verify(token, process.env.SECRET);
