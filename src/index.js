@@ -7,6 +7,10 @@ import { ChakraProvider, extendTheme } from "@chakra-ui/react";
 import { BrowserRouter } from "react-router-dom";
 import RootContextProvider from "./context/RootContext";
 
+import axios from "axios";
+axios.defaults.baseURL=process.env.REACT_APP_BASE_URL;
+axios.defaults.withCredentials = true;
+
 const config = {
   useSystemColorMode: false,
   initialColorMode: "dark",
