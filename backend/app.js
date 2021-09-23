@@ -10,6 +10,14 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(cors());
 
+/*app.use(cors({
+  withCredentials: true,
+  credentials: true,
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  origin: true
+}));
+*/
+
 mongoose.connect(
   process.env.DB_URL,
   {
