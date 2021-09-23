@@ -1,6 +1,6 @@
 # Pizza store
 
-A friendly food ordering website for your neighborhood pizza store.
+A friendly food ordering website for your neighbourhood pizza store.
 Original Repo : https://github.com/charan1973/pizzashop
 
 ### **Stack used:**  
