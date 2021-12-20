@@ -17,7 +17,6 @@
   "license": "ISC",
   "dependencies": {
     "@hapi/joi": "^17.1.1",
-    "@jest-mock/express": "^1.4.5",
     "bcryptjs": "^2.4.3",
     "cloudinary": "^1.23.0",
     "cookie-parser": "^1.4.5",
@@ -30,10 +29,5 @@
     "path": "^0.12.7",
     "stripe": "^8.129.0",
     "uuid": "^8.3.2"
-  },
-  "devDependencies": {
-    "babel-jest": "^27.4.5",
-    "jest": "^27.4.5",
-    "supertest": "^6.1.6"
   }
 }
