@@ -10,8 +10,16 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(cors());
 
+/*app.use(cors({
+  withCredentials: true,
+  credentials: true,
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  origin: true
+}));
+*/
+
 mongoose.connect(
-  process.env.DB_URL,
+  ""+process.env.DB_URL,
   {
     useUnifiedTopology: true,
     useNewUrlParser: true,
@@ -55,7 +63,8 @@ if (process.env.NODE_ENV === 'production') {
   });
 }
 
-const port = process.env.PORT || 80;
+const port = process.env.PORT || 8000;
 app.listen(port, (req, res) => {
   console.log(`Server is running at ${port}`);
 });
+module.exports = app;

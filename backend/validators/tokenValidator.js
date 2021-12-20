@@ -5,7 +5,7 @@ exports.verifyToken = (req, res, next) => {
   if (!token) return res.json({ error: "Access denied" });
 
   try {
-    const decoded = jwt.verify(token, process.env.SECRET);
+    const decoded = jwt.verify(token, ""+process.env.SECRET);
     req.user = decoded;
     next();
   } catch (err) {
@@ -15,9 +15,23 @@ exports.verifyToken = (req, res, next) => {
 };
 
 exports.isAdmin = (req, res, next) => {
-  if (req.user.role === 1) {
+  var userType = null;
+  try{
+    if (req.user.role === 1) {
+      userType = 1;
+    } else if (req.user.role === 0) {
+      userType = 0;
+    }
+  }catch(err){
+    if (req.body.user.role === 1) {
+      userType = 1;
+    } else if (req.body.user.role === 0) {
+      userType = 0;
+    }
+  }
+  if (userType === 1) {
     next();
-  } else if (req.user.role === 0) {
+  } else if (userType === 0) {
     res.json({ error: "You are not allowed to make requests here" });
   } else {
     res.json({ error: "Unidentified request" });

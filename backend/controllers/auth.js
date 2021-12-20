@@ -28,7 +28,7 @@ exports.signUp = async (req, res) => {
     const savedUser = await newUser.save();
     const token = await jwt.sign(
       { id: savedUser._id, role: savedUser.role },
-      process.env.SECRET
+      ""+process.env.SECRET
     );
     res.cookie("token", token, { httpOnly: true });
     return res.json({
@@ -59,7 +59,7 @@ exports.signIn = async (req, res) => {
   
     const token = await jwt.sign(
       { id: findUser._id, role: findUser.role },
-      process.env.SECRET
+      ""+process.env.SECRET
     );
   
     res.cookie("token", token, { httpOnly: true });
@@ -72,7 +72,7 @@ exports.signIn = async (req, res) => {
       },
     });
   }catch(err){
-    return res.json({error: "Error logging in"})
+    return res.json({error: "Error logging in"+" "+email+" "+password})
   }
 };
 

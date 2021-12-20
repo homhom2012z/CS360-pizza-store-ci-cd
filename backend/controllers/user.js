@@ -3,6 +3,28 @@ const User = require("../models/User");
 const Item = require("../models/Item");
 
 exports.getUserProfile = async (req, res) => {
+
+  try{
+    if(req.user.id!=null){
+    }
+  }catch(err){
+    try {
+      const {
+        address,
+        email,
+        firstName,
+        lastName,
+        fullName,
+        _id,
+      } = await User.findById(req.body.user.id);
+      return res.json({
+        user: { address, email, firstName, lastName, fullName, _id },
+      });
+    } catch (err) {
+      return res.json({ error: "Error getting userX" });
+    }
+  }
+
   try {
     const {
       address,
@@ -22,6 +44,7 @@ exports.getUserProfile = async (req, res) => {
 
 // Address Controllers
 exports.addAddress = async (req, res) => {
+  
   const {
     address: { buildingNumber, streetName, area, city, zipcode, phoneNumber },
   } = req.body;
@@ -38,7 +61,15 @@ exports.addAddress = async (req, res) => {
     return res.json({ error: "All fields are required" });
 
   try {
-    const findUser = await User.findById(req.user.id);
+    
+    let id=null;
+    try{
+      id=req.user.id;
+    }catch(err){
+      id=req.body.user.id;
+    }
+
+    const findUser = await User.findById(id);
     findUser.address.push(req.body);
     const savedAddress = await findUser.save();
     return res.json({ message: "Address added" });

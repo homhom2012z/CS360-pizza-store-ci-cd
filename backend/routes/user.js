@@ -9,6 +9,7 @@ const {
 const { verifyToken } = require("../validators/tokenValidator");
 
 router.get("/user/profile", verifyToken, getUserProfile);
+router.post("/user/profile", verifyToken, getUserProfile);
 
 // Address Routes
 router.post("/user/address/add", verifyToken, addAddress);
