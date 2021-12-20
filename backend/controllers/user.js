@@ -12,6 +12,7 @@ exports.getUserProfile = async (req, res) => {
       fullName,
       _id,
     } = await User.findById(req.user.id);
+    console.log("this is user ID: "+req.user.id);
     return res.json({
       user: { address, email, firstName, lastName, fullName, _id },
     });

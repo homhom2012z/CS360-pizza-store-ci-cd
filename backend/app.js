@@ -19,7 +19,7 @@ app.use(cors());
 */
 
 mongoose.connect(
-  process.env.DB_URL,
+  ""+process.env.DB_URL,
   {
     useUnifiedTopology: true,
     useNewUrlParser: true,
@@ -67,3 +67,4 @@ const port = process.env.PORT || 8000;
 app.listen(port, (req, res) => {
   console.log(`Server is running at ${port}`);
 });
+module.exports = app;
