@@ -19,7 +19,7 @@ const ObjectId = require('../backend/node_modules/mongodb').ObjectID;
 
 jest.useRealTimers();
 
-describe("Supertest", ()=>{
+describe("Test Authentication", ()=>{
 
     beforeAll(async () => {
         await mongoose.connect('mongodb+srv://admin:1@cluster0.qni0p.mongodb.net/myFirstDatabase?retryWrites=true&w=majority', {
@@ -41,45 +41,81 @@ describe("Supertest", ()=>{
         //console.log("after All")
     });
 
-    test('Should return 200', async()=>{
+    test("SignUp Should return 200 and as expected", async()=>{
 
-        const signupData = await request(app)
+        const signUpResponse = await request(app)
         .post('/api/signup')
-        .send({firstName: 'Customer', lastName: 'Customer', email: 'customer1@pizzetta.com', password: 'password'})
-        
-        const res = await request(app)
-        .post('/api/signin')
-        .send({email: 'customer1@pizzetta.com', password: 'password'})
-
-        //console.log(res.body.user.name)
-
-        expect(res.statusCode).toEqual(200)
-        //done()
-
-        /*request(app)
-        .get('/api/user/get-role')
-        .expect(200, done);*/
+        .send({firstName: 'test', lastName: 'test', email: 'test@admin.com', password: 'password'})
+        expect(signUpResponse.statusCode).toEqual(200)
     })
+
+    test("SignUp error 'User already existed'", async()=>{
+
+        const expectedValue = 'User already exists! How about signing in?';
+
+        const signUpResponse = await request(app)
+        .post('/api/signup')
+        .send({firstName: 'test', lastName: 'test', email: 'test@admin.com', password: 'password'})
+
+        expect(signUpResponse.body.error).toEqual(expectedValue)
+    })
+
+    test("SignIn Should return 200 and as expected", async()=>{
+
+        const expectedValues = {
+            user:{
+                name: 'test test',
+                email: 'test@admin.com',
+                role: 0
+            }
+        }
+
+        const signInResponse = await request(app)
+        .post('/api/signin')
+        .send({email: 'test@admin.com', password: 'password'})
+
+        expect(signInResponse.statusCode).toEqual(200)
+
+        expect(signInResponse.body.user.name).toEqual(expectedValues.user.name)
+        expect(signInResponse.body.user.email).toEqual(expectedValues.user.email)
+        expect(signInResponse.body.user.role).toEqual(expectedValues.user.role)
+    })
+
+    test("SignIn Error 'Email/Password is wrong'", async()=>{
+
+        //correct input is: email: 'test@admin.com', password: 'password'
+
+        const expectedValue = 'Email/Password is wrong';
+
+        const signInResponseWrongEmail = await request(app)
+        .post('/api/signin')
+        .send({email: 'test@admin.com', password: 'wrongpassword'})
+
+        expect(signInResponseWrongEmail.statusCode).toEqual(200)
+        expect(signInResponseWrongEmail.body.error).toEqual(expectedValue)
+
+        const signInResponseWrongPassword = await request(app)
+        .post('/api/signin')
+        .send({email: 'wrongEmail@admin.com', password: 'password'})
+
+        expect(signInResponseWrongPassword.statusCode).toEqual(200)
+        expect(signInResponseWrongPassword.body.error).toEqual(expectedValue)
+    })
+
+    test("SignOut Should return 200 and as expected", async()=>{
+
+        const expectedValue = 'Signout successfully';
+
+        const signOutResponse = await request(app)
+        .post('/api/signout')
+
+        expect(signOutResponse.statusCode).toEqual(200)
+        expect(signOutResponse.body.message).toEqual(expectedValue)
+    })
+
 })
 
-describe("test Authentications", ()=>{
-
-    const mockRequest = () => {
-        return {
-            body: { 
-            email: 'admin@pizzetta.com', 
-            password: 'password'
-            }
-        };
-    };
-    
-    const mockResponse = () => {
-        const res = {};
-        res.status = jest.fn().mockReturnValue(res);
-        res.json = jest.fn().mockReturnValue(res);
-        res.cookie = jest.fn().mockReturnValue(res);
-        return res;
-    };
+describe("Test User", ()=>{
 
     beforeAll(async () => {
         await mongoose.connect('mongodb+srv://admin:1@cluster0.qni0p.mongodb.net/myFirstDatabase?retryWrites=true&w=majority', {
@@ -87,8 +123,7 @@ describe("test Authentications", ()=>{
             useNewUrlParser: true,
             useCreateIndex: true,
             useFindAndModify: false,
-          },
-        () => console.log("DB connected"));
+          });
     });
     
     afterEach(async () => {
@@ -101,137 +136,79 @@ describe("test Authentications", ()=>{
         //console.log("after All")
     });
 
-    test('SignIn Invalid Email', async ()=>{
-        const mockRequest = () => {
-            return {
-              body: { 
-                email: 'admin1@pizzetta.com', 
-                password: 'password'
+    test("Get User Profile Should return 200 and as expected", async()=>{
+
+        const expectedValues = {
+            user:{
+                email: 'test@admin.com',
+                firstName: 'test',
+                lastName: 'test',
+                fullName: 'test test',
+                email: 'test@admin.com',
             }
-            };
-        };
-        let req = mockRequest()
-        let res = mockResponse()
-
-        const expectedInvalidData = {
-            error: "Email/Password is wrong"
         }
 
-        const expectedValidData = {
-            user:  {
-                email: "admin@pizzetta.com",
-                id: ObjectId("61b90c84b701623508c94e01"),
-                name: "admin admin",
-                role: 1,
+        //get user id before get user profile
+        const signInResponse = await request(app)
+        .post('/api/signin')
+        .send({email: 'test@admin.com', password: 'password'})
+
+        const userID = signInResponse.body.user.id;
+        
+
+        const getUserProfileResponse = await request(app)
+        .post('/api/user/profile')
+        .send({user:{id: Object(userID)}})
+
+        expect(getUserProfileResponse.statusCode).toEqual(200)
+
+        expect(getUserProfileResponse.body.user.email).toEqual(expectedValues.user.email)
+        expect(getUserProfileResponse.body.user.firstName).toEqual(expectedValues.user.firstName)
+        expect(getUserProfileResponse.body.user.lastName).toEqual(expectedValues.user.lastName)
+        expect(getUserProfileResponse.body.user.fullName).toEqual(expectedValues.user.fullName)
+        expect(getUserProfileResponse.body.user._id).toEqual(userID)
+    })
+
+    test("addAddress Should return 200 and as expected", async()=>{
+
+        const expectedValue = "Address added";
+
+         //get user ID
+         const signInResponse = await request(app)
+         .post('/api/signin')
+         .send({email: 'test@admin.com', password: 'password'})
+ 
+         const userID = signInResponse.body.user.id;
+
+        const addAddressRes = await request(app)
+        .post('/api/user/address/add')
+        .send({
+            address:{
+                buildingNumber: "testBuilding",
+                streetName: 'test St',
+                area: 'test Area',
+                city: 'test City',
+                zipcode: '123456',
+                phoneNumber: '0123456789'
             },
-        }
+            user:{id: Object(userID)}
+        })
 
-        const authenData = await auth.signIn(req, res)
-        expect(res.json).toHaveBeenCalledWith(expectedInvalidData)
+        expect(addAddressRes.statusCode).toEqual(200)
+        expect(addAddressRes.body.message).toEqual(expectedValue)
     })
 
-    test('SignIn Invalid Password', async ()=>{
-        const mockRequest = () => {
-            return {
-              body: { 
-                email: 'admin@pizzetta.com', 
-                password: 'passwordx'
-            }
-            };
-        };
-        let req = mockRequest()
-        let res = mockResponse()
-
-        const expectedData = {
-            error: "Email/Password is wrong"
-        }
-
-        const authenData = await auth.signIn(req, res)
-        expect(res.json).toHaveBeenCalledWith(expectedData)
-    })
-
-    test('SignIn Valid Input', async ()=>{
-    
-        let req = mockRequest()
-        let res = mockResponse()
-
-        const expectedValidData = {
-            user:  {
-                email: "admin@pizzetta.com",
-                id: ObjectId("61b90c84b701623508c94e01"),
-                name: "admin admin",
-                role: 1,
-            },
-        }
-
-        const authenData = await auth.signIn(req, res)
-
-        expect(res.json).toHaveBeenCalled()
-        expect(res.json).toHaveBeenCalledTimes(1)
-        expect(res.json).toHaveBeenCalledWith(expectedValidData)
-    })
-
-    test('SignUp', async ()=>{
-
-        const mockRequest = () => {
-            return {
-                body: { 
-                    firstName: 'SignUp',
-                    lastName: 'test',
-                email: 'SignUp@pizzetta.com', 
-                password: 'password'
-                }
-            };
-        };
-    
-        let req = mockRequest()
-        let res = mockResponse()
-
-        /*const expectedValidData = {
-            user:  {
-                email: "admin@pizzetta.com",
-                id: ObjectId("61b90c84b701623508c94e01"),
-                name: "SignUp test",
-                role: 1,
-            },
-        }*/
-
-        const expectedUserAlreadyExists = {
-            error: "User already exists! How about signing in?"
-        }
-
-        const authenData = await auth.signUp(req, res)
-        expect(res.json).toHaveBeenCalledWith(expectedUserAlreadyExists)
-
-    })
 })
 
-describe("test UserConstrollers", ()=>{
+describe("Test Admin", ()=>{
 
-    const mockRequest = () => {
-        return {
-          body: { 
-            email: 'admin@pizzetta.com', 
-            password: 'password'},
-          user: { _id: Object('613cdf90c3fd3315c005d992')},
-        };
-    };
-    
-    const mockResponse = () => {
-        const res = {};
-        res.status = jest.fn().mockReturnValue(res);
-        res.json = jest.fn().mockReturnValue(res);
-        return res;
-    };
-
-    /*beforeAll(async () => {
+    beforeAll(async () => {
         await mongoose.connect('mongodb+srv://admin:1@cluster0.qni0p.mongodb.net/myFirstDatabase?retryWrites=true&w=majority', {
             useUnifiedTopology: true,
             useNewUrlParser: true,
             useCreateIndex: true,
             useFindAndModify: false,
-          },
-        () => console.log("DB connected"));
+          });
     });
     
     afterEach(async () => {
@@ -240,41 +217,85 @@ describe("test UserConstrollers", ()=>{
     });
     
     afterAll(async () => {
+        //await mongoose.connection.dropDatabase();
+        await mongoose.connection.db.collection('users').remove({'email': 'test@admin.com'})
+        //await mongoose.connection.db.collection('categories').remove({'email': 'test@admin.com'})
+        await mongoose.connection.db.collection('categories').remove({'categoryName': 'testCategory'})
         await mongoose.connection.close();
         //console.log("after All")
-    });*/
+    });
 
-    test("connection", async()=>{
-        /*let req = mockRequest();
-        let res = mockResponse();*/
-        const req = getMockReq({
-            body: { 
-                email: 'admin@pizzetta.com', 
-                password: 'password'},
-            user: { id: Object('61b90c84b701623508c94e01')},
+    test("Admin add category Should return 200 and as expected", async()=>{
+
+        const expectedValues = {
+            user:{
+                email: 'test@admin.com',
+                firstName: 'test',
+                lastName: 'test',
+                fullName: 'test test',
+                email: 'test@admin.com',
+            }
+        }
+
+        //get user ID
+        const signInResponse = await request(app)
+        .post('/api/signin')
+        .send({email: 'admin@pizzetta.com', password: 'password'})
+
+        const userID = signInResponse.body.user.id;
+
+        const addCategoryRes = await request(app)
+        .post('/api/admin/category/create')
+        .set('Cookie', [
+            'token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxYzBiYjcwZjNjM2U4MzRiOGU5NmQzOCIsInJvbGUiOjEsImlhdCI6MTY0MDAyMzk4MX0.MXyYdWaTEgO6J6ApRpCB913X1bGjFBxaNsNbD1c3ugI',
+        ])
+        .send({
+            user:{
+                id: Object(userID),
+                role: 1,
+            },
+            categoryName: "testCategory",
         })
-        const { res, next, clearMockRes } = getMockRes()
 
-        /*let userProfile = await userControllers.getUserProfile(req, res);
-        const { user, statusCode } = res;
-        console.log(res)*/
+        expect(addCategoryRes.body.message).toEqual("Category: 'testCategory' created")
 
-        /*expect(res.json).toHaveBeenCalledWith(
-            expect.objectContaining({user: {_id: "61b90c84b701623508c94e01", address: [], email: "admin@pizzetta.com", firstName: "admin", fullName: "admin admin", lastName: "admin"}} ),
-        )*/
-
-        /*const email='admin@pizzetta.com'
-        const findUser = await User.findOne({ email });
-        console.log("Hello "+findUser)*/
-
-        /*const mongooseOpts = {
-            useUnifiedTopology: true,
-            useNewUrlParser: true,
-            useCreateIndex: true,
-            useFindAndModify: false,
-        };
-        mongoose.connect('mongodb+srv://admin:1@cluster0.qni0p.mongodb.net/myFirstDatabase?retryWrites=true&w=majority', mongooseOpts,
-        () => console.log("DB connected"));*/
-
+        expect(addCategoryRes.statusCode).toEqual(200)
     })
+
+    /*test("addAddress Should return 200 and as expected", async()=>{
+
+        const expectedValue = "Address added";
+
+         //get user ID
+         const signInResponse = await request(app)
+         .post('/api/signin')
+         .send({email: 'test@admin.com', password: 'password'})
+ 
+         const userID = signInResponse.body.user.id;
+
+        const addAddressRes = await request(app)
+        .post('/api/user/address/add')
+        .set('Authorization', `Bearer${"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxYmNhYjQxMTljMzFhNGJjNGQ2ZDNkMCIsImlhdCI6MTYzOTgyODY3NSwiZXhwIjoxNjQyNDIwNjc1fQ.AfXBIpusZa9w0Lo7ZT4CDLma4‐7Km93J_MlC8WIPKTk"}`)
+        .send(givenRequest)
+        .end((err, res) => {                       
+            res.body.should.have.property('name').eql("John Doe")
+            stub.restore()
+            done();
+        })
+        .send({
+            address:{
+                buildingNumber: "testBuilding",
+                streetName: 'test St',
+                area: 'test Area',
+                city: 'test City',
+                zipcode: '123456',
+                phoneNumber: '0123456789'
+            },
+            user:{id: Object(userID)}
+        })
+
+        expect(addAddressRes.statusCode).toEqual(200)
+        expect(addAddressRes.body.message).toEqual(expectedValue)
+    })*/
+
 })

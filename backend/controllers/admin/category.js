@@ -9,12 +9,27 @@ exports.createCategory = async (req, res) => {
   const findCategory = await Category.findOne({ categoryName });
   if (findCategory) return res.json({ error: "Category already exists" });
 
-  const newCategory = new Category({
-    categoryName,
-    categoryCreator: req.user.id,
-  });
-
-  try {
+  try{
+    const newCategory = new Category({
+      categoryName,
+      categoryCreator: req.user.id,
+    });
+    try {
+      const savedCategory = await newCategory.save();
+      return res.json({
+        message: `Category: '${savedCategory.categoryName}' created`,
+      });
+    } catch (err) {
+      return res.json({
+        error: "Category cannot be saved. Look if something is missing.",
+      });
+    }
+  }catch(err){
+    const newCategory = new Category({
+      categoryName,
+      categoryCreator: req.body.user.id,
+    });
+    try {
     const savedCategory = await newCategory.save();
     return res.json({
       message: `Category: '${savedCategory.categoryName}' created`,
@@ -23,6 +38,7 @@ exports.createCategory = async (req, res) => {
     return res.json({
       error: "Category cannot be saved. Look if something is missing.",
     });
+  }
   }
 };
 
