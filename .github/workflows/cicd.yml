@@ -35,7 +35,7 @@ jobs:
         | echo ${{ secrets.REACT_APP_STRIPE_KEY }} >> .env
         | echo ${{ secrets.STRIPE_SECRET_KEY }} >> .env
 
-    - name: Install node modules for backend & start server
+    - name: Install node modules for backend
       working-directory: ./backend
       run: |
         ls
@@ -48,7 +48,8 @@ jobs:
         npm run build
     
     - name: Start backend server
-      run: npm start
+      run: |
+        npm start &
     
     - name: Test app
       run: npm test
