@@ -70,7 +70,7 @@ jobs:
       with:
         push: true
         tags: homhom2012z/pizzastore:latest
-
+  #
   # CD:
   #   needs: [CI]
   #   if: ${{ always() && contains(needs.*.result, 'success') && !(contains(needs.*.result, 'failure')) }}
