@@ -7,5 +7,4 @@ WORKDIR /pizza/client
 RUN npm install
 RUN npm run build
 WORKDIR /pizza
-EXPOSE 8000
 CMD ["npm" , "start"]
