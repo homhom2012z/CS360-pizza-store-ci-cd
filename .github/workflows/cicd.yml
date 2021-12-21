@@ -54,9 +54,8 @@ jobs:
     
     - name: Install test dependencies & Test app.
       run: |
-        ls
         npm install 
-        npm test
+        npm test  &
     
     # - name: Login to DockerHub
     #   uses: docker/login-action@v1
