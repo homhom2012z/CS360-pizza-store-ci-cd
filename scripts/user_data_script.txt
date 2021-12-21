@@ -7,4 +7,4 @@ sudo service docker start
 sudo gpasswd -a ec2-user docker
 newgrp docker
 
-docker run -t -d -p 8000:8000 homhom2012z/CS360_STINSE
+docker run -t -d -p 8000:27071 homhom2012z/pizzastore
