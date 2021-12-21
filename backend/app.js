@@ -26,7 +26,7 @@ const DB_URL = `mongodb+srv://${DB_USERNAME}:${DB_PASSWORD}@cluster0.qni0p.mongo
 
 mongoose.connect(
   //""+process.env.DB_URL,
-  ""+DB_URL,
+  DB_URL,
   {
     useUnifiedTopology: true,
     useNewUrlParser: true,
