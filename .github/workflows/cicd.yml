@@ -70,24 +70,24 @@ jobs:
         push: true
         tags: homhom2012z/pizzastore:latest
 
-  CD:
-    needs: [CI]
-    if: ${{ always() && contains(needs.*.result, 'success') && !(contains(needs.*.result, 'failure')) }}
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./scripts
+  # CD:
+  #   needs: [CI]
+  #   if: ${{ always() && contains(needs.*.result, 'success') && !(contains(needs.*.result, 'failure')) }}
+  #   runs-on: ubuntu-latest
+  #   defaults:
+  #     run:
+  #       working-directory: ./scripts
     
-    steps:
-      - uses: actions/checkout@v2
-      - name: Configure AWS credentials
-        if: success()
-        uses: aws-actions/configure-aws-credentials@13d241b293754004c80624b5567555c4a39ffbe3
-        with:
-            aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-            aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-            aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
-            aws-region: ${{ secrets.AWS_REGION }}
+  #   steps:
+  #     - uses: actions/checkout@v2
+  #     - name: Configure AWS credentials
+  #       if: success()
+  #       uses: aws-actions/configure-aws-credentials@13d241b293754004c80624b5567555c4a39ffbe3
+  #       with:
+  #           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+  #           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+  #           aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
+  #           aws-region: ${{ secrets.AWS_REGION }}
   # CD:
     # - name: Configure AWS credentials
     #   if: success()

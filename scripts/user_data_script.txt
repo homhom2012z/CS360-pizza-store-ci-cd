@@ -7,4 +7,4 @@ sudo service docker start
 sudo gpasswd -a ec2-user docker
 newgrp docker
 
-docker run -t -d -p 8000:27071 homhom2012z/pizzastore
+docker run -t -d -p 27071:27071 homhom2012z/pizzastore
