@@ -224,7 +224,7 @@ describe("Test Admin", ()=>{
         //await mongoose.connection.dropDatabase();
         await mongoose.connection.db.collection('users').remove({'email': 'test@admin.com'})
         //await mongoose.connection.db.collection('categories').remove({'email': 'test@admin.com'})
-        //await mongoose.connection.db.collection('categories').remove({'categoryName': 'testCategory'})
+        await mongoose.connection.db.collection('categories').remove({'categoryName': 'testCategory'})
         await mongoose.connection.close();
         //console.log("after All")
     });
