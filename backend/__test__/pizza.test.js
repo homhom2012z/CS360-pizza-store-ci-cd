@@ -13,12 +13,18 @@ const auth = require("../controllers/auth")
 
 const ObjectId = require('../node_modules/mongodb').ObjectID;
 
+const DB_USERNAME = process.env.DB_USERNAME;
+const DB_PASSWORD = process.env.DB_PASSWORD;
+const DB_NAME = process.env.DB_NAME;
+
+const DB_URL = `mongodb+srv://${DB_USERNAME}:${DB_PASSWORD}@cluster0.qni0p.mongodb.net/${DB_NAME}?retryWrites=true&w=majority`;
+
 jest.useRealTimers();
 
 describe("Pizza Store testing", ()=>{
 
     beforeAll(async () => {
-        await mongoose.connect('mongodb+srv://admin:1@cluster0.qni0p.mongodb.net/myFirstDatabase?retryWrites=true&w=majority', {
+        await mongoose.connect(DB_URL, {
             useUnifiedTopology: true,
             useNewUrlParser: true,
             useCreateIndex: true,
