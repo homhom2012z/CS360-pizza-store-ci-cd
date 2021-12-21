@@ -18,9 +18,9 @@ app.use(cors());
 }));
 */
 
-const username = process.env.DB_USERNAME;
-const password = process.env.DB_PASSWORD;
-const dbName = process.env.DB_NAME;
+const DB_USERNAME = process.env.DB_USERNAME;
+const DB_PASSWORD = process.env.DB_PASSWORD;
+const DB_NAME = process.env.DB_NAME;
 
 mongoose.connect(
   //""+process.env.DB_URL,
