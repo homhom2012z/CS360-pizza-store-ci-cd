@@ -37,7 +37,7 @@ describe("Test Authentication", ()=>{
         //console.log("after All")
     });
 
-    test("SignUp Should return 200 and as expected", async()=>{
+    test("SignUp Should return 200", async()=>{
 
         const signUpResponse = await request(app)
         .post('/api/signup')
