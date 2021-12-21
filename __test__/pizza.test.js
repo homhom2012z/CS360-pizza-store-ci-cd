@@ -266,27 +266,31 @@ describe("Test Admin", ()=>{
         expect(addCategoryRes.statusCode).toEqual(200)
     })
 
-    /*test("addAddress Should return 200 and as expected", async()=>{
+    /*test("Admin Add Item Should return 200 and as an expected", async()=>{
 
         const expectedValue = "Address added";
 
          //get user ID
          const signInResponse = await request(app)
          .post('/api/signin')
-         .send({email: 'test@admin.com', password: 'password'})
+         .send({email: 'admin@pizzetta.com', password: 'password'})
  
          const userID = signInResponse.body.user.id;
 
         const addAddressRes = await request(app)
-        .post('/api/user/address/add')
-        .set('Authorization', `Bearer${"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxYmNhYjQxMTljMzFhNGJjNGQ2ZDNkMCIsImlhdCI6MTYzOTgyODY3NSwiZXhwIjoxNjQyNDIwNjc1fQ.AfXBIpusZa9w0Lo7ZT4CDLma4‐7Km93J_MlC8WIPKTk"}`)
-        .send(givenRequest)
-        .end((err, res) => {                       
-            res.body.should.have.property('name').eql("John Doe")
-            stub.restore()
-            done();
-        })
+        .post('/api/admin/item/create')
+        .set('Cookie', [
+            'token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxYzBiYjcwZjNjM2U4MzRiOGU5NmQzOCIsInJvbGUiOjEsImlhdCI6MTY0MDAyMzk4MX0.MXyYdWaTEgO6J6ApRpCB913X1bGjFBxaNsNbD1c3ugI',
+        ])
         .send({
+            itemName: 'May',
+            itemAvailable: 'true',
+            itemCategory: '61c0dc44f10ee82cecbc940b',
+            size: {
+                regular:"9.99",
+                medium:"19.99",
+                large:"39.99"
+            },
             address:{
                 buildingNumber: "testBuilding",
                 streetName: 'test St',

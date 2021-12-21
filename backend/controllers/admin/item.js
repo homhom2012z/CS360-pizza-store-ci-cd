@@ -4,11 +4,14 @@ const uploader = require("../../config/cloudinaryConfig")
 exports.createItem = async (req, res) => {
   const { itemName, size, itemCategory } = req.body;
   let image = ""
+  //console.log(req.body)
+  //console.log("DATA: "+itemName+" : "+size+" : "+itemCategory)
 
   if(req.file !== undefined){
     const { url, secure_url, public_id, asset_id } = await uploader.upload(
       req.file.path, {folder: "pizza/"}
     );
+    //console.log(req.file)
     image = {
       url,
       secure_url,
@@ -20,9 +23,16 @@ exports.createItem = async (req, res) => {
   if (!itemName || Object.keys(JSON.parse(size)).length === 0 || !itemCategory)
     return res.json({ error: "All the fields are required" });
 
+  var userID=null;
+  try{
+    userID=req.user.id;
+  }catch(e){
+    userID=req.body.user.id;
+  }
+
   const newItem = new Item({
     ...req.body,
-    itemCreator: req.user.id,
+    itemCreator: userID,
     size: JSON.parse(size),
     image
   });
