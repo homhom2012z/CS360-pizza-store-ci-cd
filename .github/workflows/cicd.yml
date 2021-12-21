@@ -40,7 +40,6 @@ jobs:
     - name: Install node modules for backend
       working-directory: ./backend
       run: |
-        echo 'aaa'>> .backup
         ls
         npm install
     

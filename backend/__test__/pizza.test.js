@@ -210,11 +210,13 @@ describe("Pizza Store testing", ()=>{
             .send({email: 'admin@pizzetta.com', password: 'password'})
     
             const userID = signInResponse.body.user.id;
+
+            var cookie = signInResponse.header['set-cookie'][0].split('=')[1];
     
             const addCategoryRes = await request(app)
             .post('/api/admin/category/create')
             .set('Cookie', [
-                'token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxYzBkYmIxMTNhYmM3MDIzMDAxZTE5YiIsInJvbGUiOjEsImlhdCI6MTY0MDExOTM5N30.dp6EdVDUOzk8tbPS7NIMLKiWNazBPlIAfCoKjcGrJEo',
+                `token=${cookie}`,
             ])
             .send({
                 user:{
