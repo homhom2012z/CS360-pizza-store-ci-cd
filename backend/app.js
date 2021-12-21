@@ -18,8 +18,13 @@ app.use(cors());
 }));
 */
 
+const DB_USERNAME = process.env.DB_USERNAME;
+const DB_PASSWORD = process.env.DB_PASSWORD;
+const DB_NAME = process.env.DB_NAME;
+
 mongoose.connect(
-  ""+process.env.DB_URL,
+  //""+process.env.DB_URL,
+  `mongodb+srv://${DB_USERNAME}:${DB_PASSWORD}@cluster0.qni0p.mongodb.net/${DB_NAME}?retryWrites=true&w=majority`,
   {
     useUnifiedTopology: true,
     useNewUrlParser: true,
