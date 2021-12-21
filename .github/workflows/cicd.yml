@@ -26,29 +26,16 @@ jobs:
 
     - name: Set .env
       working-directory: ./backend
-      run: |
-        echo ${{ secrets.SECRET }} >> .env
+      run: | 
+        echo ${{ secrets.SECRET }} >> .env 
         echo ${{ secrets.PORT }} >> .env
-        echo ${{ secrets.DB_URL }} >> .env
-        echo ${{ secrets.NODE_ENV }} >> .env
+        echo ${{ secrets.DB_URL }} >> .env 
+        echo ${{ secrets.NODE_ENV }} >> .env 
         echo ${{ secrets.CLOUD_NAME }} >> .env 
         echo ${{ secrets.CLOUD_API }} >> .env
         echo ${{ secrets.CLOUD_SECRET }} >> .env
         echo ${{ secrets.REACT_APP_STRIPE_KEY }} >> .env
         echo ${{ secrets.STRIPE_SECRET_KEY }} >> .env
-
-    - name: Get .env
-      working-directory: ./backend
-      run: |
-        echo ${{ secrets.SECRET }}
-        echo ${{ secrets.PORT }}
-        echo ${{ secrets.DB_URL }}
-        echo ${{ secrets.NODE_ENV }}
-        echo ${{ secrets.CLOUD_NAME }}
-        echo ${{ secrets.CLOUD_API }}
-        echo ${{ secrets.CLOUD_SECRET }}
-        echo ${{ secrets.REACT_APP_STRIPE_KEY }}
-        echo ${{ secrets.STRIPE_SECRET_KEY }}
 
     - name: Install node modules for backend
       working-directory: ./backend
@@ -66,24 +53,24 @@ jobs:
       run: |
         npm start &
     
-    - name: Install test dependencies & Test app.
+    - name: Run Test app.
+      working-directory: ./backend
       run: |
-        npm install 
-        npm test  &
+        npm test
     
-    # - name: Login to DockerHub
-    #   uses: docker/login-action@v1
-    #   with:
-    #     username: ${{ secrets.DOCKERHUB_USERNAME }}
-    #     password: ${{ secrets.DOCKERHUB_TOKEN }}
+    - name: Login to DockerHub
+      uses: docker/login-action@v1
+      with:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
  
-    # - name: Build and push to DockerHub
-    #   if: success()
-    #   uses: docker/build-push-action@v2
-    #   with:
-    #     push: true
-    #     tags: homhom2012z/pizzastore:latest
-  #
+    - name: Build and push to DockerHub
+      if: success()
+      uses: docker/build-push-action@v2
+      with:
+        push: true
+        tags: homhom2012z/pizzastore:latest
+
   # CD:
   #   needs: [CI]
   #   if: ${{ always() && contains(needs.*.result, 'success') && !(contains(needs.*.result, 'failure')) }}

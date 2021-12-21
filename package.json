@@ -5,14 +5,7 @@
   "scripts": {
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm install --prefix backend && npm run build --prefix client",
     "start": "npm start --prefix backend",
-    "test": "jest",
     "dev": "npm run build --prefix client && npm run dev --prefix backend"
-  },
-  "jest": {
-    "transform": {
-      "^.+\\.[t|j]sx?$": "babel-jest"
-    },
-    "testEnvironment": "node"
   },
   "repository": {
     "type": "git",
@@ -25,14 +18,10 @@
   },
   "homepage": "https://github.com/charan1973/pizzashop#readme",
   "devDependencies": {
-    "@babel/preset-env": "^7.16.5",
-    "babel-jest": "^27.4.5",
     "dotenv": "^10.0.0",
-    "jest": "^27.4.5",
     "lerna": "^3.22.1"
   },
   "dependencies": {
-    "@jest-mock/express": "^1.4.5",
-    "supertest": "^6.1.6"
+    
   }
 }
