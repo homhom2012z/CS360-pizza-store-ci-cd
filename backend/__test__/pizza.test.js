@@ -24,7 +24,6 @@ jest.useRealTimers();
 describe("Pizza Store testing", ()=>{
 
     beforeAll(async () => {
-        await mongoose.connection.close();
         await mongoose.connect(DB_URL, {
             useUnifiedTopology: true,
             useNewUrlParser: true,
