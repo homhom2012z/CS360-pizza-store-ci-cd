@@ -17,7 +17,7 @@ const username = process.env.DB_USERNAME;
 const password = process.env.DB_PASSWORD;
 const dbName = process.env.DB_NAME;
 
-const mongo_url = `mongodb+srv://${username}:${password}@cluster0.vxyrb.mongodb.net/${dbName}?retryWrites=true&w=majority`;
+const mongo_url = `mongodb+srv://${username}:${password}@cluster0.qni0p.mongodb.net/${dbName}?retryWrites=true&w=majority`;
 
 jest.useRealTimers();
 
@@ -27,7 +27,7 @@ describe("Pizza Store testing", ()=>{
 
         require("dotenv").config();
             mongoose.Promise = global.Promise;
-            await mongoose.connect(mongo_url, {useNewUrlParser: true});
+            await mongoose.connect(""+mongo_url, {useNewUrlParser: true});
         /*await mongoose.connect('mongodb+srv://admin:1@cluster0.qni0p.mongodb.net/myFirstDatabase?retryWrites=true&w=majority', {
             useUnifiedTopology: true,
             useNewUrlParser: true,
