@@ -48,8 +48,7 @@ jobs:
         npm run build
     
     - name: Start backend server
-      run: |
-      npm start
+      run: npm start
     
     - name: Test app
       run: npm test
