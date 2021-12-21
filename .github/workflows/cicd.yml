@@ -26,7 +26,8 @@ jobs:
 
     - name: Set .env
       working-directory: ./backend
-      run: echo ${{ secrets.SECRET }} >> .env
+      run: |
+        echo ${{ secrets.SECRET }} >> .env
         echo ${{ secrets.PORT }} >> .env
         echo ${{ secrets.DB_URL }} >> .env
         echo ${{ secrets.NODE_ENV }} >> .env
