@@ -224,6 +224,7 @@ describe("Pizza Store testing", ()=>{
                 categoryName: "testCategory",
             })
             expect(addCategoryRes.statusCode).toEqual(200)
+            console.log(addCategoryRes.body)
             expect(addCategoryRes.body.message).toEqual("Category: 'testCategory' created")
     
             
