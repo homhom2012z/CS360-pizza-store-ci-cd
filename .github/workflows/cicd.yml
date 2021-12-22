@@ -27,16 +27,17 @@ jobs:
     - name: Set .env
       working-directory: ./backend
       run: |
-        echo "SECRET=${{ secrets.SECRET }}"
-        echo "'SECRET='${{ secrets.SECRET }}" >> .env
-        echo "PORT${{ secrets.PORT }} >> .env
-        echo ${{ secrets.DB_URL }} >> .env
-        echo ${{ secrets.NODE_ENV }} >> .env 
-        echo ${{ secrets.CLOUD_NAME }} >> .env 
-        echo ${{ secrets.CLOUD_API }} >> .env
-        echo ${{ secrets.CLOUD_SECRET }} >> .env
-        echo ${{ secrets.REACT_APP_STRIPE_KEY }} >> .env
-        echo ${{ secrets.STRIPE_SECRET_KEY }} >> .env
+        echo "SECRET=${{ secrets.SECRET }}" >> .env
+        cat .env
+        # echo "'SECRET='${{ secrets.SECRET }}" >> .env
+        # echo "PORT${{ secrets.PORT }} >> .env
+        # echo ${{ secrets.DB_URL }} >> .env
+        # echo ${{ secrets.NODE_ENV }} >> .env 
+        # echo ${{ secrets.CLOUD_NAME }} >> .env 
+        # echo ${{ secrets.CLOUD_API }} >> .env
+        # echo ${{ secrets.CLOUD_SECRET }} >> .env
+        # echo ${{ secrets.REACT_APP_STRIPE_KEY }} >> .env
+        # echo ${{ secrets.STRIPE_SECRET_KEY }} >> .env
 
     # - name: Install node modules for backend
     #   working-directory: ./backend
