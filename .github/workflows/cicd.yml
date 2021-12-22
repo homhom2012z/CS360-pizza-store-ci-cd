@@ -28,6 +28,7 @@ jobs:
       working-directory: ./backend
       run: |
         echo "SECRET=${{ secrets.SECRET }}" >> .env
+        echo "SECRETX=${{ secrets.SECRET }}" >> .env
         cat .env
         # echo "'SECRET='${{ secrets.SECRET }}" >> .env
         # echo "PORT${{ secrets.PORT }} >> .env
