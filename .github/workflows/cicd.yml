@@ -27,7 +27,7 @@ jobs:
     - name: Set .env
       working-directory: ./backend
       run: |
-        echo "'SECRET='${{ secrets.SECRET }}"
+        echo "SECRET=${{ secrets.SECRET }}"
         echo "'SECRET='${{ secrets.SECRET }}" >> .env
         echo "PORT${{ secrets.PORT }} >> .env
         echo ${{ secrets.DB_URL }} >> .env
