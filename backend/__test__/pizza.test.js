@@ -13,13 +13,13 @@ const auth = require("../controllers/auth")
 
 const ObjectId = require('../node_modules/mongodb').ObjectID;
 require("dotenv").config({path: '../.env'});
-
+const db_url=process.env.DB_URL;
 jest.useRealTimers();
 
 describe("Pizza Store testing", ()=>{
 
     beforeAll(async () => {
-        await mongoose.connect(process.env.DB_URL, {
+        await mongoose.connect(db_url, {
             useUnifiedTopology: true,
             useNewUrlParser: true,
             useCreateIndex: true,
