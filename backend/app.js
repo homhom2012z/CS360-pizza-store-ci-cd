@@ -22,11 +22,11 @@ const DB_USERNAME = process.env.DB_USERNAME;
 const DB_PASSWORD = process.env.DB_PASSWORD;
 const DB_NAME = process.env.DB_NAME;
 
-//var DB_URL =`mongodb+srv://${DB_USERNAME}:${DB_PASSWORD}@cluster0.qni0p.mongodb.net/${DB_NAME}?retryWrites=true&w=majority`;
+let DB_URL =`mongodb+srv://${DB_USERNAME}:${DB_PASSWORD}@cluster0.qni0p.mongodb.net/${DB_NAME}?retryWrites=true&w=majority`;
 
 mongoose.connect(
   //""+process.env.DB_URL,
-  ""+"mongodb+srv://admin:1@cluster0.qni0p.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
+  ""+DB_URL,
   {
     useUnifiedTopology: true,
     useNewUrlParser: true,
