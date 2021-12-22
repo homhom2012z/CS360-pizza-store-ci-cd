@@ -26,7 +26,7 @@ const DB_NAME = process.env.DB_NAME;
 
 mongoose.connect(
   //""+process.env.DB_URL,
-  ""+process.env.DB_URL,
+  ""+"mongodb+srv://admin:1@cluster0.qni0p.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
   {
     useUnifiedTopology: true,
     useNewUrlParser: true,
