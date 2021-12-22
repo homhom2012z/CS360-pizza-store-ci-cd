@@ -52,7 +52,7 @@ describe("Pizza Store testing", ()=>{
     
         test("SignUp error 'User already existed'", async()=>{
     
-            const expectedValue = 'User is already exists! How about signing in?';
+            const expectedValue = 'User already exists! How about signing in?';
     
             const signUpResponse = await request(app)
             .post('/api/signup')
