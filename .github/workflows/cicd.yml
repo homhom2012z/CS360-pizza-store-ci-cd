@@ -23,6 +23,7 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
+        clean: false
 
     - name: Set .env
       working-directory: ./backend

@@ -20,7 +20,7 @@ app.use(cors());
 
 mongoose.connect(
   //""+process.env.DB_URL,
-  ""+process.env.DB_URL+"?retryWrites=true&w=majority",
+  ""+process.env.DB_URL,
   {
     useUnifiedTopology: true,
     useNewUrlParser: true,
