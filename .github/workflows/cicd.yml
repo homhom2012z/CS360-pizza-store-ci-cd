@@ -26,16 +26,16 @@ jobs:
 
     - name: Set .env
       working-directory: ./backend
-      run: |
-        echo "SECRET=${{ secrets.SECRET }}" >> .env
-        echo "PORT=${{ secrets.PORT }}" >> .env
-        echo "DB_URL=${{ secrets.DB_URL }}" >> .env
-        echo "NODE_ENV=${{ secrets.NODE_ENV }}" >> .env 
-        echo "CLOUD_NAME=${{ secrets.CLOUD_NAME }}" >> .env 
-        echo "CLOUD_API=${{ secrets.CLOUD_API }}" >> .env
-        echo "CLOUD_SECRET=${{ secrets.CLOUD_SECRET }}" >> .env
-        echo "REACT_APP_STRIPE_KEY=${{ secrets.REACT_APP_STRIPE_KEY }}" >> .env
-        echo "STRIPE_SECRET_KEY=${{ secrets.STRIPE_SECRET_KEY }}" >> .env
+      run: | 
+        echo ${{ secrets.SECRET }} >> .env
+        echo ${{ secrets.PORT }} >> .env
+        echo ${{ secrets.DB_URL }} >> .env
+        echo ${{ secrets.NODE_ENV }} >> .env 
+        echo ${{ secrets.CLOUD_NAME }} >> .env 
+        echo ${{ secrets.CLOUD_API }} >> .env
+        echo ${{ secrets.CLOUD_SECRET }} >> .env
+        echo ${{ secrets.REACT_APP_STRIPE_KEY }} >> .env
+        echo ${{ secrets.STRIPE_SECRET_KEY }} >> .env
 
     - name: Install node modules for backend
       working-directory: ./backend
@@ -58,6 +58,20 @@ jobs:
       working-directory: ./backend
       run: |
         npm test
+
+    - name: Reset&Renew .env 
+      working-directory: ./backend
+      run: |
+        rm -r .env
+        echo "SECRET=${{ secrets.SECRET }}" >> .env
+        echo "PORT=${{ secrets.PORT }}" >> .env
+        echo "DB_URL=${{ secrets.DB_URL }}" >> .env
+        echo "NODE_ENV=${{ secrets.NODE_ENV }}" >> .env 
+        echo "CLOUD_NAME=${{ secrets.CLOUD_NAME }}" >> .env 
+        echo "CLOUD_API=${{ secrets.CLOUD_API }}" >> .env
+        echo "CLOUD_SECRET=${{ secrets.CLOUD_SECRET }}" >> .env
+        echo "REACT_APP_STRIPE_KEY=${{ secrets.REACT_APP_STRIPE_KEY }}" >> .env
+        echo "STRIPE_SECRET_KEY=${{ secrets.STRIPE_SECRET_KEY }}" >> .env
     
     - name: Login to DockerHub
       uses: docker/login-action@v1
