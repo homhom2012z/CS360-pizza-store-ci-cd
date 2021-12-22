@@ -156,7 +156,7 @@ describe("Pizza Store testing", ()=>{
     
         test("addAddress Should return 200 and as expected", async()=>{
     
-            const expectedValue = "Address added";
+            const expectedValue = "The address was added";
     
             //get user ID
             const signInResponse = await request(app)
