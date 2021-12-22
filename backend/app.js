@@ -20,7 +20,7 @@ app.use(cors());
 
 mongoose.connect(
   //""+process.env.DB_URL,
-  ""+"mongodb+srv://admin:1@cluster0.qni0p.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
+  ""+process.env.DB_URL+"?retryWrites=true&w=majority",
   {
     useUnifiedTopology: true,
     useNewUrlParser: true,
