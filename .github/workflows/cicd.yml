@@ -29,6 +29,7 @@ jobs:
       run: | 
         echo ${{ secrets.SECRET }} >> .env
         echo ${{ secrets.PORT }} >> .env
+        echo ${{ secrets.DB_URL }} >> .env
         echo ${{ secrets.DB_USERNAME }} >> .env
         echo ${{ secrets.DB_PASSWORD }} >> .env
         echo ${{ secrets.DB_NAME }} >> .env
