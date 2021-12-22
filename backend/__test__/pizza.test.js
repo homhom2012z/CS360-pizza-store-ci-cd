@@ -19,7 +19,7 @@ jest.useRealTimers();
 describe("Pizza Store testing", ()=>{
 
     beforeAll(async () => {
-        await mongoose.connect(""+process.env.DB_URL, {
+        await mongoose.connect(process.env.DB_URL, {
             useUnifiedTopology: true,
             useNewUrlParser: true,
             useCreateIndex: true,
