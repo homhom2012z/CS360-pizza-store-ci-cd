@@ -15,7 +15,7 @@ exports.signUp = async (req, res) => {
 
   const findUser = await User.findOne({ email });
   if (findUser)
-    return res.json({ error: "User already exists! How about signing in?" });
+    return res.json({ error: "User is already exists! How about signing in?" });
 
   const salt = await bcrypt.genSaltSync(10);
   const hash = await bcrypt.hashSync(password, salt);
