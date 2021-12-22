@@ -13,17 +13,12 @@ const auth = require("../controllers/auth")
 
 const ObjectId = require('../node_modules/mongodb').ObjectID;
 
-require("dotenv").config();
-const DB_USERNAME = process.env.DB_USERNAME;
-const DB_PASSWORD = process.env.DB_PASSWORD;
-const DB_NAME = process.env.DB_NAME;
-let DB_URL =`mongodb+srv://${DB_USERNAME}:${DB_PASSWORD}@cluster0.qni0p.mongodb.net/${DB_NAME}?retryWrites=true&w=majority`;
 jest.useRealTimers();
 
 describe("Pizza Store testing", ()=>{
 
     beforeAll(async () => {
-        await mongoose.connect(""+DB_URL, {
+        await mongoose.connect('mongodb://localhost:27071/myFirstDatabase', {
             useUnifiedTopology: true,
             useNewUrlParser: true,
             useCreateIndex: true,
@@ -40,7 +35,7 @@ describe("Pizza Store testing", ()=>{
         //await mongoose.connection.dropDatabase();
         await mongoose.connection.db.collection('users').remove({'email': 'test@admin.com'})
         //await mongoose.connection.db.collection('categories').remove({'email': 'test@admin.com'})
-        //await mongoose.connection.db.collection('categories').remove({'categoryName': 'testCategory'})
+        await mongoose.connection.db.collection('categories').remove({'categoryName': 'testCategory'})
         await mongoose.connection.close();
         //console.log("after All")
     });
