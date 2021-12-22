@@ -46,11 +46,11 @@ jobs:
         cat .env
         npm install
     
-    # - name: Install node modules for client & build client
-    #   working-directory: ./client
-    #   run: |
-    #     npm install
-    #     npm run build
+    - name: Install node modules for client & build client
+      working-directory: ./client
+      run: |
+        npm install
+        npm run build
     
     - name: Start backend server
       run: |
