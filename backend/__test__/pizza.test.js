@@ -12,13 +12,14 @@ const userControllers = require("../controllers/user");
 const auth = require("../controllers/auth")
 
 const ObjectId = require('../node_modules/mongodb').ObjectID;
+require("dotenv").config({path: '../.env'});
 
 jest.useRealTimers();
 
 describe("Pizza Store testing", ()=>{
 
     beforeAll(async () => {
-        await mongoose.connect('mongodb+srv://admin:1@cluster0.qni0p.mongodb.net/myFirstDatabase?retryWrites=true&w=majority', {
+        await mongoose.connect(""+process.env.DB_URL, {
             useUnifiedTopology: true,
             useNewUrlParser: true,
             useCreateIndex: true,
