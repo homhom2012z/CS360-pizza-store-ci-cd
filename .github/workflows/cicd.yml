@@ -28,7 +28,7 @@ jobs:
       working-directory: ./backend
       run: |
         echo "SECRET=${{ secrets.SECRET }}" >> .env
-        echo "PORT={{ secrets.PORT }}" >> .env
+        echo "PORT=${{ secrets.PORT }}" >> .env
         echo "DB_URL=${{ secrets.DB_URL }}" >> .env
         echo "NODE_ENV=${{ secrets.NODE_ENV }}" >> .env 
         echo "CLOUD_NAME=${{ secrets.CLOUD_NAME }}" >> .env 
@@ -50,14 +50,14 @@ jobs:
         npm install
         npm run build
     
-    # - name: Start backend server
-    #   run: |
-    #     npm start &
+    - name: Start backend server
+      run: |
+        npm start &
     
-    # - name: Run Test app.
-    #   working-directory: ./backend
-    #   run: |
-    #     npm test
+    - name: Run Test app.
+      working-directory: ./backend
+      run: |
+        npm test
     
     - name: Login to DockerHub
       uses: docker/login-action@v1
