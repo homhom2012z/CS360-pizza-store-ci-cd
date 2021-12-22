@@ -72,7 +72,7 @@ exports.addAddress = async (req, res) => {
     const findUser = await User.findById(id);
     findUser.address.push(req.body);
     const savedAddress = await findUser.save();
-    return res.json({ message: "Address added" });
+    return res.json({ message: "The address was added" });
   } catch (err) {
     return res.json({ error: "Error adding the address" });
   }
