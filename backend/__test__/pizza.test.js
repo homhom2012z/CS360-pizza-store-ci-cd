@@ -18,7 +18,7 @@ jest.useRealTimers();
 describe("Pizza Store testing", ()=>{
 
     beforeAll(async () => {
-        await mongoose.connect('mongodb://localhost:27071/myFirstDatabase', {
+        await mongoose.connect('mongodb+srv://admin:1@cluster0.qni0p.mongodb.net/myFirstDatabase?retryWrites=true&w=majority', {
             useUnifiedTopology: true,
             useNewUrlParser: true,
             useCreateIndex: true,
