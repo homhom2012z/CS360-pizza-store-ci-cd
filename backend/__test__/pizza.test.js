@@ -14,6 +14,9 @@ const auth = require("../controllers/auth")
 const ObjectId = require('../node_modules/mongodb').ObjectID;
 
 require("dotenv").config();
+const DB_USERNAME = process.env.DB_USERNAME;
+const DB_PASSWORD = process.env.DB_PASSWORD;
+const DB_NAME = process.env.DB_NAME;
 let DB_URL =`mongodb+srv://${DB_USERNAME}:${DB_PASSWORD}@cluster0.qni0p.mongodb.net/${DB_NAME}?retryWrites=true&w=majority`;
 jest.useRealTimers();
 
