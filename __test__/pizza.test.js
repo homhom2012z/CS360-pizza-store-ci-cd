@@ -22,7 +22,7 @@ jest.useRealTimers();
 describe("Test Authentication", ()=>{
 
     beforeAll(async () => {
-        await mongoose.connect('mongodb+srv://admin:1@cluster0.qni0p.mongodb.net/myFirstDatabase?retryWrites=true&w=majority', {
+        //null values, {
             useUnifiedTopology: true,
             useNewUrlParser: true,
             useCreateIndex: true,
@@ -118,7 +118,7 @@ describe("Test Authentication", ()=>{
 describe("Test User", ()=>{
 
     beforeAll(async () => {
-        await mongoose.connect('mongodb+srv://admin:1@cluster0.qni0p.mongodb.net/myFirstDatabase?retryWrites=true&w=majority', {
+        //null values, {
             useUnifiedTopology: true,
             useNewUrlParser: true,
             useCreateIndex: true,
@@ -203,7 +203,7 @@ describe("Test User", ()=>{
 describe("Test Admin", ()=>{
 
     beforeAll(async () => {
-        await mongoose.connect('mongodb+srv://admin:1@cluster0.qni0p.mongodb.net/myFirstDatabase?retryWrites=true&w=majority', {
+        //null values, {
             useUnifiedTopology: true,
             useNewUrlParser: true,
             useCreateIndex: true,

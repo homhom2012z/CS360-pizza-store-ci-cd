@@ -73,7 +73,7 @@ beforeAll(async () => {
       () => console.log("DB connected")
     )
 
-    /*await mongoose.connect('mongodb+srv://admin:1@cluster0.qni0p.mongodb.net/myFirstDatabase?retryWrites=true&w=majority', {
+    /*//null values, {
         useUnifiedTopology: true,
         useNewUrlParser: true,
         useCreateIndex: true,
